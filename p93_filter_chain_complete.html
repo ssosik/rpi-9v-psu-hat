@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P93 HAT — Filter Chain</title>
+<style>
+  :root {
+    --color-text-primary: #1a1a18;
+    --color-text-secondary: #5f5e5a;
+    --color-text-tertiary: #888780;
+    --color-border-tertiary: rgba(0,0,0,0.15);
+    --color-background-secondary: #f1efe8;
+    --font-sans: system-ui, -apple-system, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-text-primary: #e8e6de;
+      --color-text-secondary: #b4b2a9;
+      --color-text-tertiary: #888780;
+      --color-border-tertiary: rgba(255,255,255,0.15);
+      --color-background-secondary: #2c2c2a;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: var(--font-sans);
+    background: transparent;
+    padding: 24px;
+  }
+  svg text { font-family: var(--font-sans); fill: var(--color-text-primary); }
+  svg text.th { font-size: 14px; font-weight: 500; fill: inherit; }
+  svg text.ts { font-size: 12px; font-weight: 400; fill: inherit; }
+  svg text.t  { font-size: 14px; font-weight: 400; fill: inherit; }
+
+  /* colour ramps — light mode fills, dark mode auto-inverts via CSS vars */
+  .c-purple > rect, .c-purple > circle, .c-purple > ellipse { fill: #EEEDFE; stroke: #534AB7; }
+  .c-purple text { fill: #3C3489; }
+  .c-blue   > rect, .c-blue   > circle, .c-blue   > ellipse { fill: #E6F1FB; stroke: #185FA5; }
+  .c-blue   text { fill: #0C447C; }
+  .c-teal   > rect, .c-teal   > circle, .c-teal   > ellipse { fill: #E1F5EE; stroke: #0F6E56; }
+  .c-teal   text { fill: #085041; }
+  .c-gray   > rect, .c-gray   > circle, .c-gray   > ellipse { fill: #F1EFE8; stroke: #5F5E5A; }
+  .c-gray   text { fill: #444441; }
+  .c-coral  > rect, .c-coral  > circle, .c-coral  > ellipse { fill: #FAECE7; stroke: #993C1D; }
+  .c-coral  text { fill: #712B13; }
+  .c-amber  > rect, .c-amber  > circle, .c-amber  > ellipse { fill: #FAEEDA; stroke: #854F0B; }
+  .c-amber  text { fill: #633806; }
+
+  @media (prefers-color-scheme: dark) {
+    .c-purple > rect, .c-purple > circle, .c-purple > ellipse { fill: #3C3489; stroke: #AFA9EC; }
+    .c-purple text { fill: #CECBF6; }
+    .c-blue   > rect, .c-blue   > circle, .c-blue   > ellipse { fill: #0C447C; stroke: #85B7EB; }
+    .c-blue   text { fill: #B5D4F4; }
+    .c-teal   > rect, .c-teal   > circle, .c-teal   > ellipse { fill: #085041; stroke: #5DCAA5; }
+    .c-teal   text { fill: #9FE1CB; }
+    .c-gray   > rect, .c-gray   > circle, .c-gray   > ellipse { fill: #444441; stroke: #B4B2A9; }
+    .c-gray   text { fill: #D3D1C7; }
+    .c-coral  > rect, .c-coral  > circle, .c-coral  > ellipse { fill: #712B13; stroke: #F0997B; }
+    .c-coral  text { fill: #F5C4B3; }
+    .c-amber  > rect, .c-amber  > circle, .c-amber  > ellipse { fill: #633806; stroke: #EF9F27; }
+    .c-amber  text { fill: #FAC775; }
+  }
+
+  .arr { stroke: var(--color-text-secondary); stroke-width: 1.5px; fill: none; }
+  .box { fill: var(--color-background-secondary); stroke: var(--color-border-tertiary); stroke-width: 0.5px; }
+  .node { cursor: default; }
+</style>
+</head>
+<body>
+<svg width="100%" viewBox="0 0 680 540" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- ── Row 1: signal chain blocks ── -->
+
+<!-- RPi 5V -->
+<g class="node c-teal">
+  <rect x="20" y="40" width="90" height="56" rx="8" stroke-width="0.5"/>
+  <text class="th" x="65" y="62" text-anchor="middle" dominant-baseline="central">RPi 5V</text>
+  <text class="ts" x="65" y="80" text-anchor="middle" dominant-baseline="central">noisy source</text>
+</g>
+
+<line x1="110" y1="68" x2="130" y2="68" class="arr" marker-end="url(#arrow)"/>
+
+<!-- Stage 1: RC filter on 5V -->
+<g class="node c-purple">
+  <rect x="130" y="30" width="120" height="76" rx="8" stroke-width="0.5"/>
+  <text class="th" x="190" y="54" text-anchor="middle" dominant-baseline="central">Stage 1 — RC</text>
+  <text class="ts" x="190" y="72" text-anchor="middle" dominant-baseline="central">4.7Ω + 100µF</text>
+  <text class="ts" x="190" y="88" text-anchor="middle" dominant-baseline="central">fc ≈ 340 Hz</text>
+</g>
+
+<line x1="250" y1="68" x2="270" y2="68" class="arr" marker-end="url(#arrow)"/>
+
+<!-- NMH0515SC -->
+<g class="node c-purple">
+  <rect x="270" y="30" width="120" height="76" rx="8" stroke-width="0.5"/>
+  <text class="th" x="330" y="54" text-anchor="middle" dominant-baseline="central">NMH0515SC</text>
+  <text class="ts" x="330" y="72" text-anchor="middle" dominant-baseline="central">5V → +15V</text>
+  <text class="ts" x="330" y="88" text-anchor="middle" dominant-baseline="central">1kV isolation</text>
+</g>
+
+<line x1="390" y1="68" x2="410" y2="68" class="arr" marker-end="url(#arrow)"/>
+
+<!-- MC7809CTG -->
+<g class="node c-blue">
+  <rect x="410" y="30" width="120" height="76" rx="8" stroke-width="0.5"/>
+  <text class="th" x="470" y="54" text-anchor="middle" dominant-baseline="central">MC7809CTG</text>
+  <text class="ts" x="470" y="72" text-anchor="middle" dominant-baseline="central">15V → 9V</text>
+  <text class="ts" x="470" y="88" text-anchor="middle" dominant-baseline="central">61 dB PSRR</text>
+</g>
+
+<line x1="530" y1="68" x2="550" y2="68" class="arr" marker-end="url(#arrow)"/>
+
+<!-- Stage 2: RC on 9V rail -->
+<g class="node c-blue">
+  <rect x="550" y="30" width="110" height="76" rx="8" stroke-width="0.5"/>
+  <text class="th" x="605" y="54" text-anchor="middle" dominant-baseline="central">Stage 2 — RC</text>
+  <text class="ts" x="605" y="72" text-anchor="middle" dominant-baseline="central">47Ω + 100µF</text>
+  <text class="ts" x="605" y="88" text-anchor="middle" dominant-baseline="central">fc ≈ 34 Hz</text>
+</g>
+
+<!-- ── Vertical drop to stage 3 ── -->
+<line x1="605" y1="106" x2="605" y2="140" stroke="var(--color-text-secondary)" stroke-width="1" opacity="0.5"/>
+<line x1="605" y1="140" x2="400" y2="140" stroke="var(--color-text-secondary)" stroke-width="1" opacity="0.5"/>
+<line x1="400" y1="140" x2="400" y2="160" class="arr" marker-end="url(#arrow)" stroke="var(--color-text-secondary)" stroke-width="1" opacity="0.5"/>
+
+<!-- Stage 3: local bypass per channel -->
+<g class="node c-gray">
+  <rect x="270" y="160" width="260" height="56" rx="8" stroke-width="0.5"/>
+  <text class="th" x="400" y="182" text-anchor="middle" dominant-baseline="central">Stage 3 — local bypass</text>
+  <text class="ts" x="400" y="200" text-anchor="middle" dominant-baseline="central">10µF + 100nF at each preamp V+</text>
+</g>
+
+<!-- Arrow down to preamps -->
+<line x1="400" y1="216" x2="400" y2="246" class="arr" marker-end="url(#arrow)"/>
+
+<!-- Preamp blocks -->
+<g class="node c-coral">
+  <rect x="230" y="246" width="130" height="56" rx="8" stroke-width="0.5"/>
+  <text class="th" x="295" y="268" text-anchor="middle" dominant-baseline="central">Preamp A — L</text>
+  <text class="ts" x="295" y="286" text-anchor="middle" dominant-baseline="central">P93 · EM272</text>
+</g>
+
+<g class="node c-coral">
+  <rect x="380" y="246" width="130" height="56" rx="8" stroke-width="0.5"/>
+  <text class="th" x="445" y="268" text-anchor="middle" dominant-baseline="central">Preamp B — R</text>
+  <text class="ts" x="445" y="286" text-anchor="middle" dominant-baseline="central">P93 · EM272</text>
+</g>
+
+<!-- ── Attenuation summary table ── -->
+<rect x="20" y="330" width="640" height="185" rx="10" fill="none" stroke="var(--color-border-tertiary)" stroke-width="0.7" stroke-dasharray="3 3"/>
+
+<text class="th" x="340" y="354" text-anchor="middle">Noise rejection — stacked attenuation</text>
+
+<text class="ts" x="40"  y="378" fill="var(--color-text-secondary)">Stage</text>
+<text class="ts" x="200" y="378" fill="var(--color-text-secondary)">Mechanism</text>
+<text class="ts" x="390" y="378" fill="var(--color-text-secondary)">Corner / spec</text>
+<text class="ts" x="540" y="378" fill="var(--color-text-secondary)">Attenuation @ 150kHz</text>
+<line x1="30" y1="384" x2="650" y2="384" stroke="var(--color-border-tertiary)" stroke-width="0.5"/>
+
+<text class="ts" x="40"  y="402" fill="var(--color-text-primary)">Stage 1</text>
+<text class="ts" x="200" y="402" fill="var(--color-text-primary)">RC on 5V feed (4.7Ω / 100µF)</text>
+<text class="ts" x="390" y="402" fill="var(--color-text-primary)">fc = 340 Hz</text>
+<text class="ts" x="540" y="402" fill="var(--color-text-primary)">~53 dB</text>
+
+<text class="ts" x="40"  y="422" fill="var(--color-text-primary)">NMH iso</text>
+<text class="ts" x="200" y="422" fill="var(--color-text-primary)">Galvanic isolation (1kV barrier)</text>
+<text class="ts" x="390" y="422" fill="var(--color-text-primary)">structural break</text>
+<text class="ts" x="540" y="422" fill="var(--color-text-primary)">60+ dB (typ)</text>
+
+<text class="ts" x="40"  y="442" fill="var(--color-text-primary)">7809 PSRR</text>
+<text class="ts" x="200" y="442" fill="var(--color-text-primary)">Linear regulator rejection</text>
+<text class="ts" x="390" y="442" fill="var(--color-text-primary)">61 dB @ low freq</text>
+<text class="ts" x="540" y="442" fill="var(--color-text-primary)">~40 dB @ 150kHz</text>
+
+<text class="ts" x="40"  y="462" fill="var(--color-text-primary)">Stage 2</text>
+<text class="ts" x="200" y="462" fill="var(--color-text-primary)">RC on 9V rail (47Ω / 100µF)</text>
+<text class="ts" x="390" y="462" fill="var(--color-text-primary)">fc = 34 Hz</text>
+<text class="ts" x="540" y="462" fill="var(--color-text-primary)">~75 dB</text>
+
+<text class="ts" x="40"  y="482" fill="var(--color-text-primary)">Stage 3</text>
+<text class="ts" x="200" y="482" fill="var(--color-text-primary)">Local bypass (10µF + 100nF)</text>
+<text class="ts" x="390" y="482" fill="var(--color-text-primary)">HF decoupling</text>
+<text class="ts" x="540" y="482" fill="var(--color-text-primary)">~20 dB added</text>
+
+<line x1="30" y1="490" x2="650" y2="490" stroke="var(--color-border-tertiary)" stroke-width="0.5"/>
+
+<text class="th" x="40"  y="508" fill="var(--color-text-primary)">Total (stacked)</text>
+<text class="ts" x="200" y="508" fill="var(--color-text-secondary)">all stages in series</text>
+<text class="ts" x="390" y="508" fill="var(--color-text-secondary)">worst-case 150kHz</text>
+<text class="th" x="540" y="508" fill="var(--color-text-primary)">~250 dB theoretical</text>
+
+</svg>
+</body>
+</html>
