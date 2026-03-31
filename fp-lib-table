@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "stereo-preamp-psu") (type "KiCad") (uri "${KICAD_CUSTOM}/rpi-preamp-psu-rev3/stereo-preamp-psu.pretty") (options "") (descr ""))
+)
