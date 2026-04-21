@@ -3814,7 +3814,7 @@
 	)
 	(wire
 		(pts
-			(xy 59.69 85.09) (xy 50.8 85.09)
+			(xy 99.06 82.55) (xy 90.17 82.55)
 		)
 		(stroke
 			(width 0)
@@ -3854,7 +3854,7 @@
 	)
 	(wire
 		(pts
-			(xy 57.15 82.55) (xy 50.8 82.55)
+			(xy 96.52 80.01) (xy 90.17 80.01)
 		)
 		(stroke
 			(width 0)
@@ -4053,7 +4053,7 @@
 		(uuid "62e8f70e-7f01-4a3e-9573-aadf19032857")
 	)
 	(label "+5V"
-		(at 50.8 82.55 0)
+		(at 90.17 80.01 0)
 		(effects
 			(font
 				(size 1.524 1.524)
@@ -4203,7 +4203,7 @@
 		(uuid "b29dcf40-c711-4a4f-88f7-f566ee4958ab")
 	)
 	(label "Pi_GND"
-		(at 50.8 85.09 0)
+		(at 90.17 82.55 0)
 		(effects
 			(font
 				(size 1.524 1.524)
@@ -4533,7 +4533,7 @@
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
-		(at 57.15 82.55 90)
+		(at 96.52 80.01 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4543,7 +4543,7 @@
 		(dnp no)
 		(uuid "2c08c46a-45b2-4108-af67-01d6782ccbdf")
 		(property "Reference" "#FLG01"
-			(at 55.88 81.28 0)
+			(at 95.25 78.74 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4554,7 +4554,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 62.484 84.328 90)
+			(at 101.854 81.788 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4564,7 +4564,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 57.15 82.55 0)
+			(at 96.52 80.01 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4574,7 +4574,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 57.15 82.55 0)
+			(at 96.52 80.01 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4584,7 +4584,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 57.15 82.55 0)
+			(at 96.52 80.01 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5082,7 +5082,7 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_02x20_Odd_Even")
-		(at 43.18 102.87 0)
+		(at 82.55 100.33 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5093,7 +5093,7 @@
 		(fields_autoplaced yes)
 		(uuid "766e1879-c739-4c98-8731-9f3aaf4b27e6")
 		(property "Reference" "J1"
-			(at 44.45 73.66 0)
+			(at 83.82 71.12 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5103,7 +5103,7 @@
 			)
 		)
 		(property "Value" "Conn_02x20_Odd_Even"
-			(at 44.45 76.2 0)
+			(at 83.82 73.66 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5113,7 +5113,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical"
-			(at 43.18 102.87 0)
+			(at 82.55 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5124,7 +5124,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 43.18 102.87 0)
+			(at 82.55 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5135,7 +5135,7 @@
 			)
 		)
 		(property "Description" "Generic connector, double row, 02x20, odd/even pin numbering scheme (row 1 odd numbers, row 2 even numbers), script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 43.18 102.87 0)
+			(at 82.55 100.33 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5434,7 +5434,7 @@
 	)
 	(symbol
 		(lib_id "power:PWR_FLAG")
-		(at 59.69 85.09 90)
+		(at 99.06 82.55 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -5444,7 +5444,7 @@
 		(dnp no)
 		(uuid "a44a8ad8-eda5-4f47-b1f5-2e5475345921")
 		(property "Reference" "#FLG02"
-			(at 58.42 83.82 0)
+			(at 97.79 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5455,7 +5455,7 @@
 			)
 		)
 		(property "Value" "PWR_FLAG"
-			(at 65.024 83.566 90)
+			(at 104.394 81.026 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5465,7 +5465,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 59.69 85.09 0)
+			(at 99.06 82.55 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5475,7 +5475,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 59.69 85.09 0)
+			(at 99.06 82.55 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -5485,7 +5485,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 59.69 85.09 0)
+			(at 99.06 82.55 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
