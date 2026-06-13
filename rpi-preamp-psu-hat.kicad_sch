@@ -5223,7 +5223,7 @@
 				)
 			)
 		)
-		(property "Value" "2k2"
+		(property "Value" "1k5"
 			(at 125.984 75.946 0)
 			(show_name no)
 			(do_not_autoplace no)

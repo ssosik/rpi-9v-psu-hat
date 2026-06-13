@@ -20,13 +20,15 @@ Issues identified during schematic assessment, in roughly descending order of "w
 
 ## 1. R_BLEED1 sizing for NMH0515SC −15V rail
 
-**Status:** open — needs datasheet check
+**Status:** ✅ resolved — bleeder changed from 2k2 → 1k5 for spec margin
 
-**Issue.** The −15V rail is unloaded except by R_BLEED1 (2k2 → ~6.8 mA at 15V). The NMH0515SC datasheet's minimum-load spec needs verification: if it is 10% of rated (~6.7 mA at this part's per-rail rating), 2k2 is right at the line. If it's stricter, a smaller bleeder (e.g. 1k → 15 mA, ~225 mW) gives margin.
+**Issue.** The NMH0515SC datasheet (`KDC_NMH.F03` p.4, Application Notes) specifies minimum load = 10% of rated per rail. Rated current is 67 mA per rail, so minimum = 6.7 mA. R_BLEED1 at 2k2 drew 6.82 mA = 10.2% — right at the spec line with no tolerance margin. With ±5% resistor tolerance the worst case dipped to ~9.7% load, technically out of spec.
 
-**Action.** Pull the actual NMH0515SC datasheet, find the stated minimum load and load-regulation spec, decide whether 2k2 is sufficient. Only then change the value (schematic property + BoM). Resistor power dissipation also needs to fit a standard axial — 2k2 dissipates ~100 mW (OK in 0207), 1k would be 225 mW (needs a larger resistor or 0.5W part).
+**Datasheet warning:** "*Lower than 10% minimum loading will result in an increase in output voltage, which may rise to typically double the specified output voltage if the output load falls to less than 5%.*" (i.e. −15V could become ~−30V transiently)
 
-**Blast radius if changed.** Schematic Value property + BoM update. Same footprint, no PCB change.
+**Action taken.** Changed R_BLEED1 value from **2k2 → 1k5** in both the schematic Value property and the BoM. New load on −15V rail: 15V/1500Ω = 10.0 mA = ~15% of rated, with comfortable margin even at worst-case resistor tolerance. Dissipation 150 mW — fits the existing `R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal` footprint (1/4–1/2W axial) without any PCB change.
+
+**Blast radius.** Schematic Value + BoM only. PCB unaffected. Just stuff a 1k5 instead of a 2k2 when you assemble.
 
 ## 2. Output voltage at JST is not 9V under load
 
