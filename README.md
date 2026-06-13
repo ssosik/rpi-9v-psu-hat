@@ -60,6 +60,47 @@ The HAT uses tall through-hole electrolytics (C_9V1, C_REG1: 100µF/16V, 8mm bod
 
 Add M2.5 standoffs at the corner mounting holes for mechanical stability.
 
+## Design notes
+
+A few non-obvious conventions to keep in mind before modifying the schematic or PCB:
+
+### Grounding
+
+There are **two distinct ground nets**: `Pi_GND` (everything upstream of U1) and `ISO_GND` (everything downstream of U1). Galvanic isolation across the NMH0515SC is the whole point of this board — bridging the two grounds anywhere (in the schematic, in PCB copper, or via mounting hardware) defeats the design. The corner mounting holes are intentionally on the `Pi_GND` side; the audio output side stays on `ISO_GND`.
+
+### Why R_BLEED1 exists
+
+The NMH0515SC produces ±15V but only the +15V rail feeds the 7809 — the −15V rail is otherwise unloaded. `R_BLEED1` (2k2 across −15V → ISO_GND) provides minimum load on the unused rail so the converter's cross-regulation keeps the +15V rail stable. It is not optional; do not "clean it up."
+
+### Net naming
+
+Suffixes on the rail names carry meaning:
+
+| Net | Meaning |
+|---|---|
+| `+15V` | Raw output of U1 |
+| `+15V_f` | Post-LC-filter, going into U2's input pin |
+| `+9V` | Raw 7809 output |
+| `+9V_filt` / `+9V_filt_out` | Post-Stage-2-filter, at the JST connectors |
+
+When tracing the schematic, the `_f` / `_filt` suffix tells you which side of a filter stage a net is on.
+
+### Reference designators
+
+This project uses **descriptive refdes** (`C_NMH1`, `C_REG2`, `R_BLEED1`, `R_9V1`) rather than sequential `C1, C2, R1`. The prefix names the stage or role:
+
+- `IN*` — Stage 1 input filter
+- `NMH*` — around U1 (NMH0515SC)
+- `REG*` — around U2 (the 7809 regulator)
+- `9V*` — Stage 2 output filter
+- `BLEED*` — the −15V bleeder
+
+KiCad's auto-annotation will destroy these names — don't run it without intent.
+
+### Custom footprint library
+
+`stereo-preamp-psu.pretty/` is a project-local footprint library containing `CP_Radial_D5.0mm_P5.00mm`, used by `C_NMH1`. Keep the directory alongside the project files; deleting it breaks the C_NMH1 footprint reference.
+
 ## Files
 
 | File | Description |
