@@ -5,7 +5,7 @@
 4;"C_NMH1";"CP_Radial_D5.0mm_P5.00mm";1;"10µF/25V X7R";;;
 5;"C_NMH2";"C_Disc_D5.0mm_W2.5mm_P2.50mm";1;"100nF/50V";;;
 6;"C_NMH3";"CP_Radial_D5.0mm_P2.50mm";1;"4.7µF/25V X7R";;;
-7;"FB1, FB2";"L_0603_1608Metric_Pad1.05x0.95mm_HandSolder";2;"Ferrite Bead";;;
+7;"FB1, FB2";"L_0805_2012Metric_Pad1.05x1.20mm_HandSolder";2;"Ferrite Bead";;;
 8;"J1";"PinSocket_2x20_P2.54mm_Vertical";1;"Conn_02x20_Odd_Even";;;
 9;"L1";"L_Radial_D5.0mm_H7.5mm_P2.00mm";1;"11R104C 100µH";;;
 10;"OUT1, OUT2";"JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical";2;"+9V_filt_out";;;

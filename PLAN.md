@@ -40,15 +40,13 @@ Issues identified during schematic assessment, in roughly descending order of "w
 
 ## 3. FB1 / FB2 footprint mismatch (BoM 0603 vs schematic 0805)
 
-**Status:** open — needs to be reconciled against the PCB
+**Status:** ✅ resolved — BoM updated to match schematic + PCB
 
-**Issue.** BoM lists 0603 footprint, schematic Footprint properties on FB1 (line 4798) and FB2 (line 5621) say 0805. Whatever is on the PCB right now is what was fabricated. Need to know:
-- What footprint is actually on the PCB?
-- Which size does the user intend to stuff?
+**Issue.** BoM listed 0603, but the schematic Footprint properties on FB1 (line 4798) and FB2 (line 5621) and both PCB footprints all said 0805. The PCB pads are 0805 and rev-3 boards are already fabricated, so 0805 is the authoritative reality.
 
-**Action.** Open the PCB, check FB1 and FB2 footprint references, align the schematic Value property and the BoM entry to whichever is correct. If the PCB has 0805 and the user actually wants 0603, that's a PCB change (rev 4) not a rev 3 fix.
+**Action taken.** BoM CSV updated from `L_0603_1608Metric_Pad1.05x0.95mm_HandSolder` to `L_0805_2012Metric_Pad1.05x1.20mm_HandSolder` (line 7 of `rpi-preamp-psu-hat-BoM.csv`).
 
-**Blast radius.** If PCB and schematic disagree, the next netlist push will flag it. If both already agree at 0805 and only the BoM is wrong, this is a one-line CSV edit.
+**Heads-up for ordering.** The schematic symbol description still mentions `BLM18AG601` as an example, but `BLM18` is Murata's 0603 series — it will NOT fit the 0805 pad on the PCB. When ordering, pick an 0805 (2.0×1.25 mm) ferrite bead with ~600 Ω @ 100 MHz; the Murata 0805 equivalent is `BLM21AG601` (or any equivalent from Würth, TDK, Bourns, etc.). The stale symbol-description text doesn't affect netlist or fab, just don't use it as a shopping reference.
 
 ## 4. 7809 input cap placement
 
