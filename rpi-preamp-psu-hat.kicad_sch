@@ -4292,6 +4292,206 @@
 		)
 		(uuid "fffa5e6a-fd07-42cc-8a8f-55817782582f")
 	)
+	(label "+5V"
+		(at 90.17 77.47 0)
+		(effects
+			(font
+				(size 1.524 1.524)
+			)
+			(justify left bottom)
+		)
+		(uuid "f0e99a0c-00e3-4d00-9938-9d817eb8933b")
+	)
+	(label "Pi_GND"
+		(at 77.47 87.63 180)
+		(effects
+			(font
+				(size 1.524 1.524)
+			)
+			(justify right bottom)
+		)
+		(uuid "72e6f313-b1ed-441c-a582-c53105eacdfa")
+	)
+	(label "Pi_GND"
+		(at 90.17 92.71 0)
+		(effects
+			(font
+				(size 1.524 1.524)
+			)
+			(justify left bottom)
+		)
+		(uuid "dfc453d4-75b3-4e72-a38c-4559ad326c2d")
+	)
+	(label "Pi_GND"
+		(at 90.17 100.33 0)
+		(effects
+			(font
+				(size 1.524 1.524)
+			)
+			(justify left bottom)
+		)
+		(uuid "bd8437b0-cd9b-45c3-81f7-0ae06544d50e")
+	)
+	(label "Pi_GND"
+		(at 77.47 107.95 180)
+		(effects
+			(font
+				(size 1.524 1.524)
+			)
+			(justify right bottom)
+		)
+		(uuid "1b9da62c-7545-4a1c-8bd1-5c6b4ca5d601")
+	)
+	(label "Pi_GND"
+		(at 90.17 113.03 0)
+		(effects
+			(font
+				(size 1.524 1.524)
+			)
+			(justify left bottom)
+		)
+		(uuid "d16ac714-e2ab-47c7-b031-c91859809663")
+	)
+	(label "Pi_GND"
+		(at 90.17 118.11 0)
+		(effects
+			(font
+				(size 1.524 1.524)
+			)
+			(justify left bottom)
+		)
+		(uuid "ee7476ec-a2b3-4692-ae05-41d54bdee226")
+	)
+	(label "Pi_GND"
+		(at 77.47 125.73 180)
+		(effects
+			(font
+				(size 1.524 1.524)
+			)
+			(justify right bottom)
+		)
+		(uuid "619a0200-c4b8-4906-b93d-aa9bec94fc49")
+	)
+	(no_connect
+		(at 77.47 77.47)
+		(uuid "cd4d163e-8c9a-46a2-9ea0-b339f46b4ed6")
+	)
+	(no_connect
+		(at 77.47 80.01)
+		(uuid "f3e09256-2d5f-4f84-a4cd-47bc2eabf12e")
+	)
+	(no_connect
+		(at 77.47 82.55)
+		(uuid "bd5f311d-38bd-4eb9-877e-4d2ba913b14d")
+	)
+	(no_connect
+		(at 77.47 85.09)
+		(uuid "9ef72838-d312-4773-b7d2-6cc6b469ef89")
+	)
+	(no_connect
+		(at 90.17 85.09)
+		(uuid "55811697-a4f6-4c8a-a1f9-df46691f4d20")
+	)
+	(no_connect
+		(at 90.17 87.63)
+		(uuid "740b98ad-012f-4c84-891e-71a5fb0dd0d0")
+	)
+	(no_connect
+		(at 77.47 90.17)
+		(uuid "e137e363-ed86-468b-b568-ac8f06f105b9")
+	)
+	(no_connect
+		(at 90.17 90.17)
+		(uuid "8fb05c40-82ef-439c-84cd-a48c6d4d3ac7")
+	)
+	(no_connect
+		(at 77.47 92.71)
+		(uuid "93a473a3-77ab-4281-9205-9c92ec56e58c")
+	)
+	(no_connect
+		(at 77.47 95.25)
+		(uuid "34045d71-1c5e-4f71-ade6-765ab8f700a7")
+	)
+	(no_connect
+		(at 90.17 95.25)
+		(uuid "0b706030-3769-4c5f-ab05-311e1aad3c0d")
+	)
+	(no_connect
+		(at 77.47 97.79)
+		(uuid "fcc42a40-d5c1-46bc-b7de-efc9f12279f5")
+	)
+	(no_connect
+		(at 90.17 97.79)
+		(uuid "ea768c5f-58ed-4f82-bd6d-29b70d567fe5")
+	)
+	(no_connect
+		(at 77.47 100.33)
+		(uuid "ccf69247-15e0-494b-9604-03c0dc416535")
+	)
+	(no_connect
+		(at 77.47 102.87)
+		(uuid "71b19159-a7d9-4142-b73a-cc77631d5e05")
+	)
+	(no_connect
+		(at 90.17 102.87)
+		(uuid "ad486639-be46-4804-9991-c82f8d4afe77")
+	)
+	(no_connect
+		(at 77.47 105.41)
+		(uuid "9cbb59f1-7e3b-4249-b899-e5ecdb757d48")
+	)
+	(no_connect
+		(at 90.17 105.41)
+		(uuid "78d30051-e128-4215-9d3e-9ff79adbdd54")
+	)
+	(no_connect
+		(at 90.17 107.95)
+		(uuid "78d9f8c0-c6ca-4e04-a4fd-b417c442f577")
+	)
+	(no_connect
+		(at 77.47 110.49)
+		(uuid "488ac25d-37a3-4ede-8af5-fcac0e8e859c")
+	)
+	(no_connect
+		(at 90.17 110.49)
+		(uuid "3d597e1c-1441-49dd-94bc-43c48eea6ddf")
+	)
+	(no_connect
+		(at 77.47 113.03)
+		(uuid "c957483f-4691-462e-8865-f39387ba8139")
+	)
+	(no_connect
+		(at 77.47 115.57)
+		(uuid "eae69143-fa4a-470b-9591-d8a07f945e41")
+	)
+	(no_connect
+		(at 90.17 115.57)
+		(uuid "2ed26fb2-322b-4323-a277-a34988a10351")
+	)
+	(no_connect
+		(at 77.47 118.11)
+		(uuid "22d3b1d3-1b65-47f5-b059-10d6354286c6")
+	)
+	(no_connect
+		(at 77.47 120.65)
+		(uuid "f5a35318-4a96-4755-98d3-d186815f2b11")
+	)
+	(no_connect
+		(at 90.17 120.65)
+		(uuid "a1e1510a-7fe9-44e3-9efe-19e9031b747e")
+	)
+	(no_connect
+		(at 77.47 123.19)
+		(uuid "fdadb123-8a6b-4378-8c12-c188a113c37a")
+	)
+	(no_connect
+		(at 90.17 123.19)
+		(uuid "b39a923c-fb3d-448a-a659-72f27e8e1643")
+	)
+	(no_connect
+		(at 90.17 125.73)
+		(uuid "9731729a-8383-4960-8aaa-11ea3e95dc96")
+	)
 	(symbol
 		(lib_id "Device:R")
 		(at 52.07 41.91 90)

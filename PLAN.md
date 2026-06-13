@@ -2,6 +2,22 @@
 
 Issues identified during schematic assessment, in roughly descending order of "would-actually-matter." Status is tracked inline.
 
+## 0. Only one 5V pin and one GND pin of J1 are connected
+
+**Status:** ✅ schematic done — PCB sync still needed
+
+**Issue.** The Pi 40-pin header J1 has two 5V pins (2, 4) and eight GND pins (6, 9, 14, 20, 25, 30, 34, 39). Only one 5V label and one Pi_GND label existed near J1's pin-side coordinates — the other 5V pin and seven GND pins were floating. This concentrated all input/return current through single contacts (~1A each rated), and forced switching-converter return current through a long high-inductance loop — bad for EMI and bad for the analog chain downstream.
+
+**Action taken.** Added seven new `Pi_GND` labels (at J1 pins 9, 14, 20, 25, 30, 34, 39 — pin 6 was already connected) and one additional `+5V` label (at pin 2, to join the existing pin 4 connection), all placed directly at the J1 pin endpoints. No new components. Schematic now has 11 total `Pi_GND` labels (vs 4 before) and 3 total `+5V` labels (vs 2 before).
+
+**Still to do (user, in KiCad):**
+1. Reload the schematic if KiCad is open — file was edited externally.
+2. Run **Tools → Update PCB from Schematic** to push the new connections into the netlist. New ratsnest lines will appear at the J1 pads that previously had no connection.
+3. Route the new connections. Easiest: a single Pi_GND copper pour on the bottom layer (or wherever Pi_GND lives) covering the Pi-side of the board so all eight GND pads tie to it directly. Don't let this pour cross under U1 or into the ISO_GND region — the isolation gap must stay intact.
+4. Run **Inspect → Electrical Rules Checker** in the schematic and **Inspect → Design Rules Checker** in the PCB to confirm nothing else broke.
+
+**Blast radius.** Schematic-only changes are done. PCB needs routing updates — qualifies as a rev 4 spin if the existing rev-3 boards are already in your hands and you don't want to re-fab.
+
 ## 1. R_BLEED1 sizing for NMH0515SC −15V rail
 
 **Status:** open — needs datasheet check
@@ -68,5 +84,6 @@ Issues identified during schematic assessment, in roughly descending order of "w
 ## Next steps
 
 1. ✅ Document the output voltage drop (item 2) — done in README
-2. ⏸ Confirm with the user before touching the schematic for items 1 and 3
-3. Items 4 and 5 are PCB / rev-4 territory and need user direction
+2. ⏸ Item 0 (J1 GND/5V coverage) is the most important real-electrical fix — confirm whether this goes into a rev 4 spin or a patched rev 3.
+3. ⏸ Confirm with the user before touching the schematic for items 1 and 3
+4. Items 4 and 5 are PCB / rev-4 territory and need user direction
