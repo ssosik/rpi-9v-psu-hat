@@ -52,13 +52,18 @@ Issues identified during schematic assessment, in roughly descending order of "w
 
 ## 4. 7809 input cap placement
 
-**Status:** open — PCB inspection needed
+**Status:** ✅ verified — no action needed, existing layout is correct
 
-**Issue.** 7809 datasheet wants ≥0.33 µF at IN and ≥0.1 µF at OUT for stability. Schematic has the LC-filter caps (C_NMH1 10 µF + C_NMH2 100 nF) on the +15V_f net but not visibly placed *at* U2 pin 1. Whether they're close enough depends on the trace length on the PCB.
+**Issue.** Wanted to confirm C_NMH1 (10 µF) and C_NMH2 (100 nF) are close enough to U2 pin 1 to act as effective input decoupling per the 7809 datasheet (≥0.33 µF at IN).
 
-**Action.** Open the PCB, measure the routing distance from C_NMH2 to U2 pin 1. If more than ~25 mm, add a 100 nF X7R local decoupling cap right at U2's input. (No issue if already short.)
+**Measured (from `rpi-preamp-psu-hat.kicad_pcb`):**
+- U2 pin 1 (IN, +15V_f): (123.952, 74.041) mm
+- C_NMH2 pin 1: (125.729, 66.168) mm — **trace length 8.6 mm** to U2 pin 1
+- C_NMH1 pin 1: (122.555, 66.167) mm — **trace length 11.8 mm** to U2 pin 1
 
-**Blast radius.** Either no change, or a new C component on the schematic + PCB = rev 4.
+Both caps are well within the ~25 mm rule-of-thumb threshold. C_NMH2 (100 nF) handles HF stability at 8.6 mm; C_NMH1 (10 µF) provides bulk at 11.8 mm. The net routes on F.Cu only (no vias). Effective decoupling at U2 IN is excellent.
+
+**Action.** None. The layout was already right — this item was a "verify by inspection" pass, and it passed.
 
 ## 5. No power-on LED, no input fuse, no reverse-polarity protection
 
