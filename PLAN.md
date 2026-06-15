@@ -65,6 +65,52 @@ Both caps are well within the ~25 mm rule-of-thumb threshold. C_NMH2 (100 nF) ha
 
 **Action.** None. The layout was already right — this item was a "verify by inspection" pass, and it passed.
 
+---
+
+# Rev 4 work
+
+## R4-A. Replace OUT2 (JST) with barrel jack — schematic done
+
+**Status:** ✅ schematic done — PCB work in KiCad GUI still needed
+
+**What changed in the schematic** (`rpi-preamp-psu-hat.kicad_sch`):
+- Added `Connector:Barrel_Jack` to the `lib_symbols` cache (copied verbatim from `Connector.kicad_sym`).
+- Replaced OUT2 instance: `Connector:Conn_01x02_Pin` → `Connector:Barrel_Jack`, position (325.12, 52.07) → (313.69, 52.07), value "+9V_filt_out" → "Barrel_Jack_2.1mm_CN", footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" → "Connector_BarrelJack:BarrelJack_CUI_PJ-102AH_Horizontal".
+- Updated wires so the +9V_filt distribution lands on the new pin 1 location (321.31, 49.53). The existing ISO_GND label at (321.31, 54.61) already sits at the new pin 2 location.
+- **Center-negative wiring confirmed:** Pin 1 (sleeve) = `+9V_filt`, Pin 2 (tip) = `ISO_GND` — guitar-pedal convention.
+
+**PCB work needed (do in KiCad GUI):**
+1. Open the PCB editor, run **Tools → Update PCB from Schematic**. KiCad will remove the old JST footprint and add the new `BarrelJack_CUI_PJ-102AH_Horizontal`.
+2. Place the new barrel-jack footprint at the board edge (it's a horizontal/edge-mount part — the jack opening should face off the PCB edge so a cable can plug in from outside). Suggested location: bottom-right edge near where OUT2 was, mounted so the jack opens to the right.
+3. Route the two new connections (+9V_filt to pin 1, ISO_GND to pin 2). Existing traces near old OUT2 will be obsolete; delete or reroute.
+
+## R4-B. Add HAT mounting holes
+
+**Status:** ⏸ open — needs PCB outline expansion + 2 MountingHole footprints
+
+**Spec (per Raspberry Pi HAT mechanical drawing):**
+- Drill: 2.75 mm ±0.05 mm (M2.5)
+- Land: ≥6.2 mm, isolated copper or bare board, **never connected to GND**
+- Non-plated preferred
+
+**Computed hole positions for our PCB:**
+- Hole near J1 pin 1: (153.36, 45.185)
+- Hole near J1 pin 39: (153.36, 103.185)
+
+These are 3.5 mm "outboard" of the GPIO row (i.e., between GPIO and the right edge of board) and 4.87 mm "past" the end of each pin row, matching the Pi B+/2/3/4's 58×49 mm mounting hole rectangle on its GPIO side.
+
+**Required PCB outline expansion** (before placing holes):
+- Top edge: Y=45.847 → ~Y=42.0 (extend up ~3.8 mm)
+- Bottom edge: Y=101.727 → ~Y=106.3 (extend down ~4.6 mm)
+- Right edge: X=156.21 → ~X=156.5 (extend right ~0.3 mm, basically negligible)
+
+Final board ~42 × 64 mm. Still narrower than full HAT (65 mm wide) but mounting-hole-aligned with Pi.
+
+**PCB work (do in KiCad GUI):**
+1. Edit the board outline rectangle on `Edge.Cuts` layer to the new dimensions.
+2. Drop two `MountingHole:MountingHole_2.7mm_M2.5_DIN965` (non-plated, 6.2 mm pad) footprints at the two computed coordinates.
+3. If you accidentally drop the plated variant, make sure the pad is electrically isolated (no net assignment, no fill connection).
+
 ## 5. No power-on LED, no input fuse, no reverse-polarity protection
 
 **Status:** deferred to rev 4 (if at all)
