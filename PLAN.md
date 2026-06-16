@@ -4,19 +4,13 @@ Issues identified during schematic assessment, in roughly descending order of "w
 
 ## 0. Only one 5V pin and one GND pin of J1 are connected
 
-**Status:** ✅ schematic done — PCB sync still needed
+**Status:** ✅ done — wired in PCB via commit bf55525
 
 **Issue.** The Pi 40-pin header J1 has two 5V pins (2, 4) and eight GND pins (6, 9, 14, 20, 25, 30, 34, 39). Only one 5V label and one Pi_GND label existed near J1's pin-side coordinates — the other 5V pin and seven GND pins were floating. This concentrated all input/return current through single contacts (~1A each rated), and forced switching-converter return current through a long high-inductance loop — bad for EMI and bad for the analog chain downstream.
 
-**Action taken.** Added seven new `Pi_GND` labels (at J1 pins 9, 14, 20, 25, 30, 34, 39 — pin 6 was already connected) and one additional `+5V` label (at pin 2, to join the existing pin 4 connection), all placed directly at the J1 pin endpoints. No new components. Schematic now has 11 total `Pi_GND` labels (vs 4 before) and 3 total `+5V` labels (vs 2 before).
+**Action taken.** Added seven new `Pi_GND` labels (at J1 pins 9, 14, 20, 25, 30, 34, 39 — pin 6 was already connected) and one additional `+5V` label (at pin 2, to join the existing pin 4 connection), all placed directly at the J1 pin endpoints. Schematic was then synced into the PCB and the new pads routed with F.Cu point-to-point traces. PCB now has J1 pins 2 & 4 on `/+5V` and pins 6, 9, 14, 20, 25, 30, 34, 39 on `/Pi_GND`.
 
-**Still to do (user, in KiCad):**
-1. Reload the schematic if KiCad is open — file was edited externally.
-2. Run **Tools → Update PCB from Schematic** to push the new connections into the netlist. New ratsnest lines will appear at the J1 pads that previously had no connection.
-3. Route the new connections. Easiest: a single Pi_GND copper pour on the bottom layer (or wherever Pi_GND lives) covering the Pi-side of the board so all eight GND pads tie to it directly. Don't let this pour cross under U1 or into the ISO_GND region — the isolation gap must stay intact.
-4. Run **Inspect → Electrical Rules Checker** in the schematic and **Inspect → Design Rules Checker** in the PCB to confirm nothing else broke.
-
-**Blast radius.** Schematic-only changes are done. PCB needs routing updates — qualifies as a rev 4 spin if the existing rev-3 boards are already in your hands and you don't want to re-fab.
+**Deferred sub-task — Pi_GND copper pour.** The original suggestion to lay a Pi_GND pour on the Pi-side region (instead of point-to-point routing) was *not* taken. The board still has zero zones and zero vias; all routing is F.Cu only. A pour would give a lower-impedance return path and an EMI win — worth revisiting if a future rev is spun. Keep-out across the U1 isolation line is mandatory if it's added.
 
 ## 1. R_BLEED1 sizing for NMH0515SC −15V rail
 
@@ -69,47 +63,42 @@ Both caps are well within the ~25 mm rule-of-thumb threshold. C_NMH2 (100 nF) ha
 
 # Rev 4 work
 
-## R4-A. Replace OUT2 (JST) with barrel jack — schematic done
+## R4-A. Replace OUT2 (JST) with barrel jack
 
-**Status:** ✅ schematic done — PCB work in KiCad GUI still needed
+**Status:** ✅ done — schematic in commit d4713eb, PCB in commit d1d199c
 
-**What changed in the schematic** (`rpi-preamp-psu-hat.kicad_sch`):
+**Schematic** (`rpi-preamp-psu-hat.kicad_sch`):
 - Added `Connector:Barrel_Jack` to the `lib_symbols` cache (copied verbatim from `Connector.kicad_sym`).
 - Replaced OUT2 instance: `Connector:Conn_01x02_Pin` → `Connector:Barrel_Jack`, position (325.12, 52.07) → (313.69, 52.07), value "+9V_filt_out" → "Barrel_Jack_2.1mm_CN", footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" → "Connector_BarrelJack:BarrelJack_CUI_PJ-102AH_Horizontal".
 - Updated wires so the +9V_filt distribution lands on the new pin 1 location (321.31, 49.53). The existing ISO_GND label at (321.31, 54.61) already sits at the new pin 2 location.
-- **Center-negative wiring confirmed:** Pin 1 (sleeve) = `+9V_filt`, Pin 2 (tip) = `ISO_GND` — guitar-pedal convention.
+- **Center-negative wiring:** Pin 1 (sleeve) = `+9V_filt_out`, Pin 2 (tip) = `ISO_GND` — guitar-pedal convention.
 
-**PCB work needed (do in KiCad GUI):**
-1. Open the PCB editor, run **Tools → Update PCB from Schematic**. KiCad will remove the old JST footprint and add the new `BarrelJack_CUI_PJ-102AH_Horizontal`.
-2. Place the new barrel-jack footprint at the board edge (it's a horizontal/edge-mount part — the jack opening should face off the PCB edge so a cable can plug in from outside). Suggested location: bottom-right edge near where OUT2 was, mounted so the jack opens to the right.
-3. Route the two new connections (+9V_filt to pin 1, ISO_GND to pin 2). Existing traces near old OUT2 will be obsolete; delete or reroute.
+**PCB:**
+- OUT2 footprint at (134.112, 91.59), 0° rotation. Jack opens toward the bottom board edge (+Y), with the opening face at Y ≈ 105.5 and the metal barrel protruding past the Edge.Cuts edge at Y = 106.27 as intended for edge mount.
+- Pin 1 net = `Net-(OUT1-Pin_1)` (KiCad-auto-named — same node as OUT1 pin 1, i.e. the +9V_filt_out distribution); pin 2 net = `/ISO_GND`.
+- OUT1 (JST, unchanged) at (124.5616, 92.456). Body-to-body clearance to OUT2 barrel ~2.45 mm — tight but workable.
+
+**Known cosmetic issue:** the `+9V_filt_out` net label in the schematic isn't binding to the wire downstream of FB2/R_9V1, so the post-filter output node shows up in the PCB netlist as the auto-named `Net-(OUT1-Pin_1)` instead of `/+9V_filt_out`. Electrically correct. Worth fixing in the schematic for readability.
 
 ## R4-B. Add HAT mounting holes
 
-**Status:** ⏸ open — needs PCB outline expansion + 2 MountingHole footprints
+**Status:** ✅ done — PCB updated in commit d1d199c
 
 **Spec (per Raspberry Pi HAT mechanical drawing):**
 - Drill: 2.75 mm ±0.05 mm (M2.5)
 - Land: ≥6.2 mm, isolated copper or bare board, **never connected to GND**
 - Non-plated preferred
 
-**Computed hole positions for our PCB:**
-- Hole near J1 pin 1: (153.36, 45.185)
-- Hole near J1 pin 39: (153.36, 103.185)
+**Actual placement:**
+- Hole near J1 pin 1: (153.3652, 45.1612) — within 0.05 mm of target (153.36, 45.185)
+- Hole near J1 pin 39: (153.3144, 103.1748) — within 0.05 mm of target (153.36, 103.185)
+- Footprint: `MountingHole:MountingHole_2.7mm_M2.5_DIN965` (non-plated, `np_thru_hole`, no copper land — bare-board land naturally satisfies the "never connected to GND" spec).
 
-These are 3.5 mm "outboard" of the GPIO row (i.e., between GPIO and the right edge of board) and 4.87 mm "past" the end of each pin row, matching the Pi B+/2/3/4's 58×49 mm mounting hole rectangle on its GPIO side.
+**Board outline** (`Edge.Cuts` rect): (114.3, 42.0116) → (156.4894, 106.2736), ~42.2 × 64.3 mm. Still narrower than full HAT (65 mm wide) but mounting-hole-aligned with Pi.
 
-**Required PCB outline expansion** (before placing holes):
-- Top edge: Y=45.847 → ~Y=42.0 (extend up ~3.8 mm)
-- Bottom edge: Y=101.727 → ~Y=106.3 (extend down ~4.6 mm)
-- Right edge: X=156.21 → ~X=156.5 (extend right ~0.3 mm, basically negligible)
-
-Final board ~42 × 64 mm. Still narrower than full HAT (65 mm wide) but mounting-hole-aligned with Pi.
-
-**PCB work (do in KiCad GUI):**
-1. Edit the board outline rectangle on `Edge.Cuts` layer to the new dimensions.
-2. Drop two `MountingHole:MountingHole_2.7mm_M2.5_DIN965` (non-plated, 6.2 mm pad) footprints at the two computed coordinates.
-3. If you accidentally drop the plated variant, make sure the pad is electrically isolated (no net assignment, no fill connection).
+**Tight clearances to flag at next DRC pass:**
+- Mounting hole rims (2.7 mm drill / 5.2 mm CrtYd) sit ~3.1 mm from the right and top/bottom edges. The HAT spec's 6.2 mm bare-board land just barely fits.
+- Barrel jack body silk reaches Y = 105.39 — only 0.88 mm from the bottom board edge. May trip a silk-near-edge rule.
 
 ## 5. No power-on LED, no input fuse, no reverse-polarity protection
 
@@ -134,7 +123,7 @@ Final board ~42 × 64 mm. Still narrower than full HAT (65 mm wide) but mounting
 
 ## Next steps
 
-1. ✅ Document the output voltage drop (item 2) — done in README
-2. ⏸ Item 0 (J1 GND/5V coverage) is the most important real-electrical fix — confirm whether this goes into a rev 4 spin or a patched rev 3.
-3. ⏸ Confirm with the user before touching the schematic for items 1 and 3
-4. Items 4 and 5 are PCB / rev-4 territory and need user direction
+1. ⏸ Re-run DRC and ERC. The committed reports (`*-drc.rpt` 2026-06-12, `*-erc.rpt` 2026-06-15 15:20) predate today's PCB edits. Expect new checks against the barrel jack (silk/courtyard vs board edge at Y=105.4–106.27) and the mounting holes (copper/edge clearance).
+2. ⏸ Schematic cleanup: re-bind the `+9V_filt_out` label so the post-FB2/R_9V1 wire stops auto-naming as `Net-(OUT1-Pin_1)` in the PCB.
+3. ⏸ Item 5 (LED, polyfuse) still deferred — decide whether to fold into this rev 4 or push out.
+4. ⏸ Optional: convert the J1 Pi_GND F.Cu fan-out into a Pi_GND pour for the EMI win that item 0 originally chased. Requires a keep-out across the U1 isolation line.
