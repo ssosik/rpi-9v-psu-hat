@@ -82,23 +82,25 @@ Both caps are well within the ~25 mm rule-of-thumb threshold. C_NMH2 (100 nF) ha
 
 ## R4-B. Add HAT mounting holes
 
-**Status:** ✅ done — PCB updated in commit d1d199c
+**Status:** ✅ done — initial placement in commit d1d199c, X corrected to header centerline in a later commit
 
-**Spec (per Raspberry Pi HAT mechanical drawing):**
+**Spec (per Raspberry Pi HAT board mechanical drawing, hat-board-mechanical.pdf):**
 - Drill: 2.75 mm ±0.05 mm (M2.5)
 - Land: ≥6.2 mm, isolated copper or bare board, **never connected to GND**
 - Non-plated preferred
+- **Geometry:** the GPIO header is centered on the 58 mm-wide mounting-hole rectangle, so the two top-row mounting holes sit on the header centerline (midway between the inboard and outboard pin rows) with **symmetric ±4.87 mm offsets** along the header's long axis from pin 1 and pin 39 respectively.
 
-**Actual placement:**
-- Hole near J1 pin 1: (153.3652, 45.1612) — within 0.05 mm of target (153.36, 45.185)
-- Hole near J1 pin 39: (153.3144, 103.1748) — within 0.05 mm of target (153.36, 103.185)
+**Final placement:**
+- Hole near J1 pin 1: **(151.13, 45.185)** — on header centerline X (between inboard X=149.86 and outboard X=152.4), 4.87 mm beyond pin 1 in the long axis (Y direction in our PCB)
+- Hole near J1 pin 39: **(151.13, 103.185)** — same centerline X, 4.87 mm beyond pin 39
 - Footprint: `MountingHole:MountingHole_2.7mm_M2.5_DIN965` (non-plated, `np_thru_hole`, no copper land — bare-board land naturally satisfies the "never connected to GND" spec).
 
-**Board outline** (`Edge.Cuts` rect): (114.3, 42.0116) → (156.4894, 106.2736), ~42.2 × 64.3 mm. Still narrower than full HAT (65 mm wide) but mounting-hole-aligned with Pi.
+**Placement history:**
+- Initial (commit d1d199c): (153.36, 45.185) and (153.36, 103.185). Y was right, but X was on the outboard side of the outboard pin column instead of on the header centerline.
+- Intermediate attempt: I shifted X to 151.13 (correct) but also moved Y to (48.685, 106.685) based on an over-literal reading of the HAT drawing's "29" dimension. That asymmetric placement pushed the top hole too close to J1 pin 1/pin 2 (1.87 mm center-to-center, 0.018 mm hole-to-hole clearance, triggering DRC errors) and forced the bottom hole past the board edge. Reverted.
+- Final: keep the correct centerline X = 151.13, restore symmetric ±4.87 mm Y offsets.
 
-**Tight clearances to flag at next DRC pass:**
-- Mounting hole rims (2.7 mm drill / 5.2 mm CrtYd) sit ~3.1 mm from the right and top/bottom edges. The HAT spec's 6.2 mm bare-board land just barely fits.
-- Barrel jack body silk reaches Y = 105.39 — only 0.88 mm from the bottom board edge. May trip a silk-near-edge rule.
+**Board outline** (`Edge.Cuts` rect): (114.3, 42.0116) → (156.4894, 106.2736), ~42.2 × 64.3 mm. Unchanged from rev d1d199c. Still narrower than full HAT (65 mm wide) but mounting-hole-aligned with Pi.
 
 ## 5. No power-on LED, no input fuse, no reverse-polarity protection
 

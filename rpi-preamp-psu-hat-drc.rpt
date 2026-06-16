@@ -1,12 +1,24 @@
 ** Drc report for rpi-preamp-psu-hat.kicad_pcb **
-** Created on 2026-06-15T20:16:35 **
+** Created on 2026-06-15T21:11:09 **
 ** Report includes: Errors, Warnings **
 
-** Found 39 DRC violations **
+** Found 42 DRC violations **
+[hole_clearance]: Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.2350 mm)
+    Rule: board setup constraints hole; error
+    @(151.1300 mm, 103.1850 mm): NPTH pad of REF**
+    @(155.5750 mm, 46.9900 mm): Zone [/Pi_GND] on F.Cu and B.Cu, priority 0
+[hole_clearance]: Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.2350 mm)
+    Rule: board setup constraints hole; error
+    @(151.1300 mm, 103.1850 mm): NPTH pad of REF**
+    @(155.5750 mm, 46.9900 mm): Zone [/Pi_GND] on F.Cu and B.Cu, priority 0
+[courtyards_overlap]: Courtyards overlap
+    Rule: board setup constraints courtyard; error
+    @(151.1300 mm, 45.1850 mm): Footprint REF**
+    @(147.6248 mm, 47.6250 mm): Footprint FB1
 [silk_edge_clearance]: Silkscreen clipped by board edge
     Rule: board setup constraints silk; warning
     @(114.3000 mm, 42.0116 mm): Rectangle on Edge.Cuts
-    @(153.3652 mm, 41.8612 mm): Reference field of REF**
+    @(151.1300 mm, 41.8850 mm): Reference field of REF**
 [lib_footprint_issues]: The current configuration does not include the footprint library 'stereo-preamp-psu'
     Local override; warning
     @(122.5550 mm, 66.1670 mm): Footprint C_NMH1
