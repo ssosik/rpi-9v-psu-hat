@@ -1,16 +1,17 @@
-"Id";"Designator";"Footprint";"Quantity";"Designation";"Supplier and ref";
-1;"C_9V1, C_IN1, C_REG1";"CP_Radial_D8.0mm_P5.00mm";3;"100µF/16V";;;
-2;"C_9V2, C_REG2";"C_Disc_D5.0mm_W2.5mm_P2.50mm";2;"100nF";;;
-3;"C_IN2";"C_Disc_D5.0mm_W2.5mm_P5.00mm";1;"1µF X5R";;;
-4;"C_NMH1";"CP_Radial_D5.0mm_P5.00mm";1;"10µF/25V X7R";;;
-5;"C_NMH2";"C_Disc_D5.0mm_W2.5mm_P2.50mm";1;"100nF/50V";;;
-6;"C_NMH3";"CP_Radial_D5.0mm_P2.50mm";1;"4.7µF/25V X7R";;;
-7;"FB1, FB2";"L_0805_2012Metric_Pad1.05x1.20mm_HandSolder";2;"Ferrite Bead";;;
-8;"J1";"PinSocket_2x20_P2.54mm_Vertical";1;"Conn_02x20_Odd_Even";;;
-9;"L1";"L_Radial_D5.0mm_H7.5mm_P2.00mm";1;"11R104C 100µH";;;
-10;"OUT1, OUT2";"JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical";2;"+9V_filt_out";;;
-11;"R_9V1";"R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal";1;"47Ω";;;
-12;"R_BLEED1";"R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal";1;"1k5";;;
-13;"R_IN1";"R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal";1;"4.7Ω";;;
-14;"U1";"Converter_DCDC_Murata_NMAxxxxSC_THT";1;"NMH0515SC";;;
-15;"U2";"TO-220-3_Vertical";1;"MC7809CTG";;;
+"Id";"Designator";"Footprint";"Quantity";"Designation"
+"1";"C_9V1, C_IN1, C_REG1";"Capacitor_THT:CP_Radial_D8.0mm_P5.00mm";"3";"100µF/16V"
+"2";"C_9V2, C_REG2";"Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm";"2";"100nF"
+"3";"C_IN2";"Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm";"1";"1µF X5R"
+"4";"C_NMH1";"stereo-preamp-psu:CP_Radial_D5.0mm_P5.00mm";"1";"10µF/25V X7R"
+"5";"C_NMH2";"Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P2.50mm";"1";"100nF/50V"
+"6";"C_NMH3";"Capacitor_THT:CP_Radial_D5.0mm_P2.50mm";"1";"4.7µF/25V X7R"
+"7";"FB1, FB2";"Inductor_SMD:L_0805_2012Metric_Pad1.05x1.20mm_HandSolder";"2";"Ferrite Bead"
+"8";"J1";"Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical";"1";"Conn_02x20_Odd_Even"
+"9";"L1";"Inductor_THT:L_Radial_D5.0mm_H7.5mm_P2.00mm";"1";"11R104C 100µH"
+"10";"OUT1";"Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical";"1";"+9V_filt_out"
+"11";"OUT2";"Connector_BarrelJack:BarrelJack_CUI_PJ-102AH_Horizontal";"1";"Barrel_Jack_2.1mm_CN"
+"12";"R_9V1";"Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical";"1";"47Ω"
+"13";"R_BLEED1";"Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical";"1";"1k5"
+"14";"R_IN1";"Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical";"1";"4.7Ω"
+"15";"U1";"Converter_DCDC:Converter_DCDC_Murata_NMAxxxxSC_THT";"1";"NMH0515SC"
+"16";"U2";"Package_TO_SOT_THT:TO-220-3_Vertical";"1";"MC7809CTG"

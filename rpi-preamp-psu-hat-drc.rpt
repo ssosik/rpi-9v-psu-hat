@@ -1,142 +1,126 @@
 ** Drc report for rpi-preamp-psu-hat.kicad_pcb **
-** Created on 2026-06-15T21:11:09 **
+** Created on 2026-06-17T17:14:29 **
 ** Report includes: Errors, Warnings **
 
-** Found 42 DRC violations **
-[hole_clearance]: Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.2350 mm)
-    Rule: board setup constraints hole; error
-    @(151.1300 mm, 103.1850 mm): NPTH pad of REF**
-    @(155.5750 mm, 46.9900 mm): Zone [/Pi_GND] on F.Cu and B.Cu, priority 0
-[hole_clearance]: Hole clearance violation (board setup constraints hole clearance 0.2500 mm; actual 0.2350 mm)
-    Rule: board setup constraints hole; error
-    @(151.1300 mm, 103.1850 mm): NPTH pad of REF**
-    @(155.5750 mm, 46.9900 mm): Zone [/Pi_GND] on F.Cu and B.Cu, priority 0
-[courtyards_overlap]: Courtyards overlap
-    Rule: board setup constraints courtyard; error
-    @(151.1300 mm, 45.1850 mm): Footprint REF**
-    @(147.6248 mm, 47.6250 mm): Footprint FB1
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: board setup constraints silk; warning
-    @(114.3000 mm, 42.0116 mm): Rectangle on Edge.Cuts
-    @(151.1300 mm, 41.8850 mm): Reference field of REF**
+** Found 38 DRC violations **
 [lib_footprint_issues]: The current configuration does not include the footprint library 'stereo-preamp-psu'
     Local override; warning
-    @(122.5550 mm, 66.1670 mm): Footprint C_NMH1
+    @(122.5550 mm, 66.6210 mm): Footprint C_NMH1
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(144.2720 mm, 59.5630 mm): Reference field of C_IN1
+    @(144.2720 mm, 60.0170 mm): Reference field of C_IN1
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(145.5420 mm, 60.5790 mm): Value field of C_IN1 (100µF/16V)
+    @(145.5420 mm, 61.0330 mm): Value field of C_IN1 (100µF/16V)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(127.3810 mm, 79.8830 mm): Reference field of R_9V1
+    @(127.3810 mm, 80.3370 mm): Reference field of R_9V1
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(131.8260 mm, 79.8830 mm): Value field of R_9V1 (47Ω)
+    @(131.8260 mm, 80.3370 mm): Value field of R_9V1 (47Ω)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(127.0000 mm, 48.2200 mm): Reference field of U1
+    @(127.0000 mm, 48.6740 mm): Reference field of U1
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(133.2230 mm, 48.2450 mm): Value field of U1 (NMH0515SC)
+    @(133.2230 mm, 48.6990 mm): Value field of U1 (NMH0515SC)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(134.9361 mm, 65.5320 mm): Reference field of C_NMH3
+    @(134.9361 mm, 65.9860 mm): Reference field of C_NMH3
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(136.7141 mm, 66.6750 mm): Value field of C_NMH3 (4.7µF/25V X7R)
+    @(136.7141 mm, 67.1290 mm): Value field of C_NMH3 (4.7µF/25V X7R)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(122.3010 mm, 69.7230 mm): Reference field of C_NMH2
+    @(122.3010 mm, 70.1770 mm): Reference field of C_NMH2
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(129.7940 mm, 69.7230 mm): Value field of C_NMH2 (100nF/50V)
+    @(129.7940 mm, 70.1770 mm): Value field of C_NMH2 (100nF/50V)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(128.4624 mm, 93.6752 mm): Reference field of OUT1
+    @(128.4624 mm, 94.1292 mm): Reference field of OUT1
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(120.5992 mm, 96.6724 mm): Footprint text of OUT1 (GND)
+    @(120.5992 mm, 97.1264 mm): Footprint text of OUT1 (GND)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(123.4948 mm, 96.6216 mm): Footprint text of OUT1 (+9v)
+    @(123.4948 mm, 97.0756 mm): Footprint text of OUT1 (+9v)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(121.0310 mm, 57.9120 mm): Reference field of L1
+    @(121.0310 mm, 58.3660 mm): Reference field of L1
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(119.2530 mm, 59.0550 mm): Value field of L1 (11R104C 100µH)
+    @(119.2530 mm, 59.5090 mm): Value field of L1 (11R104C 100µH)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(139.1920 mm, 83.1850 mm): Reference field of C_9V2
+    @(139.1920 mm, 83.6390 mm): Reference field of C_9V2
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(139.1920 mm, 84.2010 mm): Value field of C_9V2 (100nF)
+    @(139.1920 mm, 84.6550 mm): Value field of C_9V2 (100nF)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(120.6500 mm, 76.5810 mm): Reference field of C_REG2
+    @(120.6500 mm, 77.0350 mm): Reference field of C_REG2
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(120.7770 mm, 77.9780 mm): Value field of C_REG2 (100nF)
+    @(120.7770 mm, 78.4320 mm): Value field of C_REG2 (100nF)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(146.5580 mm, 54.1020 mm): Reference field of R_IN1
+    @(146.5580 mm, 55.9268 mm): Reference field of R_IN1
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(146.4310 mm, 55.1180 mm): Value field of R_IN1 (4.7Ω)
+    @(146.4310 mm, 56.9428 mm): Value field of R_IN1 (4.7Ω)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(118.4910 mm, 86.6140 mm): Reference field of C_9V1
+    @(118.4910 mm, 87.0680 mm): Reference field of C_9V1
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(118.1100 mm, 87.6300 mm): Value field of C_9V1 (100µF/16V)
+    @(118.1100 mm, 88.0840 mm): Value field of C_9V1 (100µF/16V)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(140.5890 mm, 72.5170 mm): Reference field of C_REG1
+    @(140.5890 mm, 72.9710 mm): Reference field of C_REG1
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(141.4780 mm, 73.4060 mm): Value field of C_REG1 (100µF/16V)
+    @(141.4780 mm, 73.8600 mm): Value field of C_REG1 (100µF/16V)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(142.8750 mm, 55.4990 mm): Reference field of C_IN2
+    @(142.8750 mm, 55.9530 mm): Reference field of C_IN2
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(143.5100 mm, 56.3880 mm): Value field of C_IN2 (1µF X5R)
+    @(143.1544 mm, 56.8420 mm): Value field of C_IN2 (1µF X5R)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(132.0800 mm, 61.7220 mm): Reference field of R_BLEED1
+    @(132.0800 mm, 62.1760 mm): Reference field of R_BLEED1
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(130.8100 mm, 60.8330 mm): Value field of R_BLEED1 (1k5)
+    @(130.8100 mm, 61.2870 mm): Value field of R_BLEED1 (1k5)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(120.5230 mm, 71.5010 mm): Reference field of U2
+    @(120.5230 mm, 71.9550 mm): Reference field of U2
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(134.4930 mm, 71.5010 mm): Value field of U2 (MC7809CTG)
+    @(134.4930 mm, 71.9550 mm): Value field of U2 (MC7809CTG)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(119.6890 mm, 61.5950 mm): Reference field of C_NMH1
+    @(119.6890 mm, 62.0490 mm): Reference field of C_NMH1
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(119.8160 mm, 62.6110 mm): Value field of C_NMH1 (10µF/25V X7R)
+    @(119.8160 mm, 63.0650 mm): Value field of C_NMH1 (10µF/25V X7R)
 [silk_overlap]: Silkscreen clearance
     Rule: board setup constraints silk; warning
-    @(128.4624 mm, 93.6752 mm): Reference field of OUT1
-    @(129.5120 mm, 105.3900 mm): Segment of OUT2 on F.Silkscreen
+    @(140.7450 mm, 56.1623 mm): Segment of C_IN1 on F.Silkscreen
+    @(140.9600 mm, 56.1440 mm): Segment of U1 on F.Silkscreen
 [silk_overlap]: Silkscreen clearance
     Rule: board setup constraints silk; warning
-    @(140.7450 mm, 55.7083 mm): Segment of C_IN1 on F.Silkscreen
-    @(140.9600 mm, 55.6900 mm): Segment of U1 on F.Silkscreen
+    @(128.4624 mm, 94.1292 mm): Reference field of OUT1
+    @(129.5120 mm, 105.8440 mm): Segment of OUT2 on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(120.0550 mm, 66.1670 mm): Circle of C_NMH1 on F.Silkscreen
-    @(122.5550 mm, 66.1670 mm): PTH pad 1 [/+15V_f] of C_NMH1
+    @(120.0550 mm, 66.6210 mm): Circle of C_NMH1 on F.Silkscreen
+    @(122.5550 mm, 66.6210 mm): PTH pad 1 [/+15V_f] of C_NMH1
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
-    @(120.0550 mm, 66.1670 mm): Circle of C_NMH1 on F.Silkscreen
-    @(117.5550 mm, 66.1670 mm): PTH pad 2 [/ISO_GND] of C_NMH1
+    @(120.0550 mm, 66.6210 mm): Circle of C_NMH1 on F.Silkscreen
+    @(117.5550 mm, 66.6210 mm): PTH pad 2 [/ISO_GND] of C_NMH1
 
 ** Found 0 unconnected pads **
 
