@@ -23,12 +23,12 @@ Two facts about this topology drive most design decisions and should shape any s
 
 2. **The −15V rail from U1 is unused** (only +15V feeds the 7809). `R_BLEED1` exists specifically to provide minimum load on the −15V rail so the NMH0515's cross-regulation works. Don't "clean up" the bleeder.
 
-Net naming convention worth preserving: `+15V_f` = post-LC-filter +15V going into the 7809; `+9V` = raw 7809 output; `+9V_filt` / `+9V_filt_out` = post-Stage-2-filter output at the JST connectors. The `_f` / `_filt` suffixes carry meaning and should not be collapsed.
+Net naming convention worth preserving: `+15V_f` = post-LC-filter +15V going into the 7809; `+9V` = raw 7809 output; `+9V_filt` = post-R_9V1 Stage 2 RC node; `+9V_filt_out` = post-FB2 output at OUT1 (JST) / OUT2 (barrel jack, center-positive). The `_f` / `_filt` suffixes carry meaning and should not be collapsed.
 
 ## File / directory conventions
 
 - `rpi-preamp-psu-hat.kicad_{sch,pcb,pro,prl}` — the live design. Edit via KiCad only; the `.lck` files (`~*.lck`) appear while KiCad has the file open.
-- `stereo-preamp-psu.pretty/` — project-local custom footprint library. `CP_Radial_D5.0mm_P5.00mm.kicad_mod` is referenced by `C_NMH1` (see schematic Footprint property `stereo-preamp-psu:CP_Radial_D5.0mm_P5.00mm`); do not delete this library or that footprint will break.
+- `stereo-preamp-psu.pretty/` — project-local custom footprint library. `CP_Radial_D5.0mm_P5.00mm.kicad_mod` is referenced by `C_NMH1` (see schematic Footprint property `stereo-preamp-psu:CP_Radial_D5.0mm_P5.00mm`); `Logo_sosik_7.5mm.kicad_mod` is the front-silk logo (LOGO1 on the PCB), generated from `logo.kicad_sym`. The library is registered in `fp-lib-table` as `stereo-preamp-psu` via `${KIPRJMOD}`; do not delete it or those footprints will break.
 - `rpi-preamp-psu-hat-backups/` — KiCad's auto-generated rolling backups (~400 zips). Ignore unless recovering from corruption.
 - `gerbers/` and `gerbers.zip` — fab output. Regenerate together when the PCB changes so they stay in sync.
 - `rpi-preamp-psu-hat-BoM.csv` — hand-maintained BoM. If you change a component value or footprint in the schematic, update this file too; it is what gets ordered against.

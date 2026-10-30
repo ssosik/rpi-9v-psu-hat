@@ -1,0 +1,12 @@
+# KiCad auto-generated backups / local history / lock + cache files
+*-backups/
+.history/
+~*.lck
+_autosave-*
+fp-info-cache
+*.kicad_sch-bak
+*.kicad_pcb-bak
+
+# macOS
+.DS_Store
+__MACOSX/

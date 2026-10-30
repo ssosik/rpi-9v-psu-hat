@@ -1,4 +1,4 @@
-ERC report (2026-06-17T17:14:27, Encoding UTF8)
+ERC report (2026-10-30T06:42:33, Encoding UTF8)
 Report includes: Errors, Warnings
 
 ***** Sheet /
@@ -23,9 +23,6 @@ Report includes: Errors, Warnings
 [lib_symbol_mismatch]: Symbol 'R' doesn't match copy in library 'Device'
     ; warning
     @(121.92 mm, 74.93 mm): Symbol R_BLEED1 [R]
-[footprint_link_issues]: The current configuration does not include the footprint library 'stereo-preamp-psu'
-    ; warning
-    @(166.37 mm, 63.50 mm): Symbol C_NMH1 [C_Polarized]
 [lib_symbol_mismatch]: Symbol 'C' doesn't match copy in library 'Device'
     ; warning
     @(166.37 mm, 80.01 mm): Symbol C_NMH2 [C]
@@ -45,7 +42,7 @@ Report includes: Errors, Warnings
     ; warning
     @(325.12 mm, 38.10 mm): Symbol OUT1 [Conn_01x02_Pin]
 
- ** ERC messages: 14  Errors 0  Warnings 14
+ ** ERC messages: 13  Errors 0  Warnings 13
 
  ** Ignored checks:
     - Global label only appears once in the schematic

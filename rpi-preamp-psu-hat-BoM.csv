@@ -9,7 +9,7 @@
 "8";"J1";"Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical";"1";"Conn_02x20_Odd_Even"
 "9";"L1";"Inductor_THT:L_Radial_D5.0mm_H7.5mm_P2.00mm";"1";"11R104C 100µH"
 "10";"OUT1";"Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical";"1";"+9V_filt_out"
-"11";"OUT2";"Connector_BarrelJack:BarrelJack_CUI_PJ-102AH_Horizontal";"1";"Barrel_Jack_2.1mm_CN"
+"11";"OUT2";"Connector_BarrelJack:BarrelJack_CUI_PJ-102AH_Horizontal";"1";"Barrel_Jack_2.1mm_CP"
 "12";"R_9V1";"Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical";"1";"47Ω"
 "13";"R_BLEED1";"Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical";"1";"1k5"
 "14";"R_IN1";"Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P2.54mm_Vertical";"1";"4.7Ω"

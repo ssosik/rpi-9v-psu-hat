@@ -6,8 +6,9 @@
 	(paper "A2")
 	(title_block
 		(title "PSU HAT — 5V to 9V isolated")
-		(rev "1.0")
-		(company "DIY")
+		(date "2026-10-30")
+		(rev "4")
+		(company "sosik")
 	)
 	(lib_symbols
 		(symbol "Connector:Conn_01x02_Pin"
@@ -4118,6 +4119,16 @@
 		)
 		(uuid "fe6e1409-c5b7-4828-bc50-a8f7fe4e7515")
 	)
+	(label "+9V_filt_out"
+		(at 304.8 45.72 90)
+		(effects
+			(font
+				(size 1.524 1.524)
+			)
+			(justify left bottom)
+		)
+		(uuid "93afcd02-10e9-4e13-b56a-b4c4e8bc0b11")
+	)
 	(label "+9V_filt"
 		(at 275.59 67.31 0)
 		(effects
@@ -6083,7 +6094,7 @@
 				)
 			)
 		)
-		(property "Value" "Barrel_Jack_2.1mm_CN"
+		(property "Value" "Barrel_Jack_2.1mm_CP"
 			(at 313.69 58.674 0)
 			(show_name no)
 			(do_not_autoplace no)

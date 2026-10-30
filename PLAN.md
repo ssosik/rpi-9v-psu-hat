@@ -10,7 +10,7 @@ Issues identified during schematic assessment, in roughly descending order of "w
 
 **Action taken.** Added seven new `Pi_GND` labels (at J1 pins 9, 14, 20, 25, 30, 34, 39 — pin 6 was already connected) and one additional `+5V` label (at pin 2, to join the existing pin 4 connection), all placed directly at the J1 pin endpoints. Schematic was then synced into the PCB and the new pads routed with F.Cu point-to-point traces. PCB now has J1 pins 2 & 4 on `/+5V` and pins 6, 9, 14, 20, 25, 30, 34, 39 on `/Pi_GND`.
 
-**Deferred sub-task — Pi_GND copper pour.** The original suggestion to lay a Pi_GND pour on the Pi-side region (instead of point-to-point routing) was *not* taken. The board still has zero zones and zero vias; all routing is F.Cu only. A pour would give a lower-impedance return path and an EMI win — worth revisiting if a future rev is spun. Keep-out across the U1 isolation line is mandatory if it's added.
+**Follow-up — Pi_GND copper pour.** ✅ done in rev 4. The board now has a `/Pi_GND` pour and an `/ISO_GND` pour, each on both F.Cu and B.Cu, separated by a copper-free channel that is 2.54 mm wide everywhere (one horizontal leg was only 1.905 mm until the R4-C cleanup). There are still no vias; signal routing is F.Cu.
 
 ## 1. R_BLEED1 sizing for NMH0515SC −15V rail
 
@@ -71,14 +71,14 @@ Both caps are well within the ~25 mm rule-of-thumb threshold. C_NMH2 (100 nF) ha
 - Added `Connector:Barrel_Jack` to the `lib_symbols` cache (copied verbatim from `Connector.kicad_sym`).
 - Replaced OUT2 instance: `Connector:Conn_01x02_Pin` → `Connector:Barrel_Jack`, position (325.12, 52.07) → (313.69, 52.07), value "+9V_filt_out" → "Barrel_Jack_2.1mm_CN", footprint "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" → "Connector_BarrelJack:BarrelJack_CUI_PJ-102AH_Horizontal".
 - Updated wires so the +9V_filt distribution lands on the new pin 1 location (321.31, 49.53). The existing ISO_GND label at (321.31, 54.61) already sits at the new pin 2 location.
-- **Center-negative wiring:** Pin 1 (sleeve) = `+9V_filt_out`, Pin 2 (tip) = `ISO_GND` — guitar-pedal convention.
+- **Center-positive wiring:** in KiCad's `Barrel_Jack` symbol and the PJ-102AH footprint, pin/pad 1 is the **center pin** and pin/pad 2 the sleeve. Pin 1 (center) = `+9V_filt_out`, pin 2 (sleeve) = `ISO_GND`, so the jack is center-**positive**. (This bullet originally claimed center-negative and the value was `Barrel_Jack_2.1mm_CN`. That was wrong, and both were corrected in R4-C. Center-positive was confirmed as the intended polarity.) Pad 3 (sleeve switch) is unconnected.
 
 **PCB:**
 - OUT2 footprint at (134.112, 91.59), 0° rotation. Jack opens toward the bottom board edge (+Y), with the opening face at Y ≈ 105.5 and the metal barrel protruding past the Edge.Cuts edge at Y = 106.27 as intended for edge mount.
-- Pin 1 net = `Net-(OUT1-Pin_1)` (KiCad-auto-named — same node as OUT1 pin 1, i.e. the +9V_filt_out distribution); pin 2 net = `/ISO_GND`.
+- Pin 1 net = `/+9V_filt_out` (was auto-named `Net-(OUT1-Pin_1)` until R4-C); pin 2 net = `/ISO_GND`.
 - OUT1 (JST, unchanged) at (124.5616, 92.456). Body-to-body clearance to OUT2 barrel ~2.45 mm — tight but workable.
 
-**Known cosmetic issue:** the `+9V_filt_out` net label in the schematic isn't binding to the wire downstream of FB2/R_9V1, so the post-filter output node shows up in the PCB netlist as the auto-named `Net-(OUT1-Pin_1)` instead of `/+9V_filt_out`. Electrically correct. Worth fixing in the schematic for readability.
+**Net-name issue (fixed in R4-C):** the schematic had no `+9V_filt_out` label at all. The name existed only as OUT1's *Value* field, so the net auto-named as `Net-(OUT1-Pin_1)`. A real label is now on the FB2 → OUT1/OUT2 wire, and the PCB net has been renamed to match.
 
 ## R4-B. Add HAT mounting holes
 
@@ -115,17 +115,52 @@ Both caps are well within the ~25 mm rule-of-thumb threshold. C_NMH2 (100 nF) ha
 
 ## 6. C_NMH3 polarity on −15V rail
 
-**Status:** ✅ resolved by inspection — polarity is correct
+**Status:** ✅ resolved — but the original premise was wrong (corrected in R4-C)
 
-**Issue.** C_NMH3 is a polarized 4.7 µF on the −15V rail. Polarized caps on a negative-going rail need pin 1 (the "+" pin in KiCad's `Device:C_Polarized` symbol) tied to ISO_GND and pin 2 tied to −15V (nNEG15V) — so that the cap's positive terminal sees the higher potential (0V > −15V).
+**Correction.** C_NMH3 is **not** on the −15V rail. The netlist puts it on `+15V_f` / `ISO_GND`, in parallel with C_NMH1 and C_NMH2. It is the "4.7µF" in the schematic's "LC filter 100µH + 4.7µF" annotation. Its polarity there is correct (+ on +15V_f). The −15V rail (`nNEG15V`) carries only U1 pin 4 and R_BLEED1, with no decoupling. The NMH datasheet doesn't require output capacitance, so that's acceptable.
+
+**Original issue text (kept for history).** C_NMH3 is a polarized 4.7 µF on the −15V rail. Polarized caps on a negative-going rail need pin 1 (the "+" pin in KiCad's `Device:C_Polarized` symbol) tied to ISO_GND and pin 2 tied to −15V (nNEG15V) — so that the cap's positive terminal sees the higher potential (0V > −15V).
 
 **Action.** Verified in schematic. (No action needed if already correct; flag for re-check during PCB silkscreen review.)
 
 ---
 
+## R4-C. Final review & cleanup (2026-10-30)
+
+**Status:** ✅ done
+
+Checks run: ERC, DRC with schematic parity, full netlist review, and a pcbnew-scripted measurement of the copper gap between the Pi and ISO domains.
+
+**Fixed:**
+- `fp-lib-table` registered the library under the wrong nickname (`stereo-preamp-psu.pretty` instead of `stereo-preamp-psu`) and pointed at the rev3 directory via `${KICAD_CUSTOM}`. It now uses `${KIPRJMOD}/stereo-preamp-psu.pretty`.
+- Removed the empty, unused `Untitled.kicad_mod` from the footprint library.
+- Added a real `+9V_filt_out` label. The PCB net is renamed from `Net-(OUT1-Pin_1)` to `/+9V_filt_out`.
+- OUT2 value `Barrel_Jack_2.1mm_CN` → `Barrel_Jack_2.1mm_CP` (schematic, PCB, BoM) to match the actual center-positive wiring. Added a `CTR+` silk marking.
+- The isolation channel between the Pi_GND and ISO_GND pours was 1.905 mm on its horizontal leg and 2.54 mm elsewhere. The ISO_GND zone edge moved from y=66.167 to y=66.802, giving 2.54 mm minimum on both layers.
+- MH1/MH2 are marked `board_only`, which clears the DRC "extra footprint" warnings without adding schematic symbols.
+- Added the sosik logo (`stereo-preamp-psu:Logo_sosik_7.5mm`, front silk, bottom-left) and a `Rev 4` marking.
+- Moved the OUT1 reference text off the OUT2 silk outline.
+- Title blocks: rev 4, dated, on both schematic and PCB.
+- Regenerated gerbers + drill + `gerbers.zip`. The previous set dated from 2026-03-31 and predated all rev 4 changes. The new zip has no `__MACOSX` entries.
+- Regenerated the README schematic and PCB images. README updated for rev 4.
+
+**Remaining DRC (all warnings, 0 errors):** 33× silk text 0.6 mm < 0.8 mm minimum, deliberate given the density (resizing to 0.8 mm causes ~105 silk overlaps); 1× C_IN1/U1 silk clearance; 2× C_NMH1 custom-footprint silk circle clipped by its own pads.
+
+**Remaining ERC (all warnings, 0 errors):** `lib_symbol_mismatch` on stock symbols (cached copies differ from the installed KiCad 10 library), plus U1/U2 being custom symbols saved under a `Device:` lib_id. Harmless. Fixing them means "Update symbols from library" in the GUI, or moving NMH0515SC/MC7809CTG into a project symbol library.
+
+**Open review notes (not changed — need a decision):**
+1. **R_IN1 input drop.** At typical load the NMH0515SC draws roughly 150–200 mA from 5V. That's an estimate: ~0.5 W out at light-load efficiency. The 4.7 Ω drops ~0.7–0.9 V, leaving U1 at ~4.1–4.3 V, below its 4.5 V minimum input (5V ±10%). Because the NMH is unregulated, its outputs scale down too. +15V should still clear the 7809's ~11 V headroom need, so it works, but it runs out of the converter's spec. Measure the voltage at U1 pin 1 on a built Rev 3 board. If it reads < 4.5 V, consider 1–2.2 Ω (corner rises to ~0.7–1.6 kHz with 100 µF).
+2. **C_NMH1 / C_NMH3 descriptions.** Values say "X7R" (ceramic), but the parts use `C_Polarized` symbols and `CP_Radial` (electrolytic) footprints. Decide which part you actually stock and make the value text match, so the BoM orders the right thing.
+
 ## Next steps
 
-1. ⏸ Re-run DRC and ERC. The committed reports (`*-drc.rpt` 2026-06-12, `*-erc.rpt` 2026-06-15 15:20) predate today's PCB edits. Expect new checks against the barrel jack (silk/courtyard vs board edge at Y=105.4–106.27) and the mounting holes (copper/edge clearance).
-2. ⏸ Schematic cleanup: re-bind the `+9V_filt_out` label so the post-FB2/R_9V1 wire stops auto-naming as `Net-(OUT1-Pin_1)` in the PCB.
-3. ⏸ Item 5 (LED, polyfuse) still deferred — decide whether to fold into this rev 4 or push out.
-4. ⏸ Optional: convert the J1 Pi_GND F.Cu fan-out into a Pi_GND pour for the EMI win that item 0 originally chased. Requires a keep-out across the U1 isolation line.
+1. ✅ Re-run DRC and ERC — done in R4-C.
+2. ✅ Schematic cleanup: `+9V_filt_out` label — done in R4-C.
+3. ✅ Pi_GND / ISO_GND pours — present on both layers with a 2.54 mm isolation channel.
+4. ⏸ **R_IN1 input drop.** Measure U1 pin 1 on a built board under normal load. If it is < 4.5 V (NMH0515SC minimum), drop R_IN1 to 1–2.2 Ω. See R4-C note 1.
+5. ⏸ **C_NMH1 / C_NMH3 part type.** Values say "X7R" (ceramic), but the symbols and footprints are polarized electrolytic. Pick the stocked part and make the value text and BoM match. See R4-C note 2.
+6. ⏸ **Silk text height.** 33 ref/value fields are 0.6 mm (DRC min 0.8 mm), and enlarging them causes ~105 overlaps. Confirm the fab's minimum text height before ordering, or lower the board's min-text rule once confirmed.
+7. ⏸ **ERC lib_symbol warnings.** Run "Update symbols from library" in the GUI, and/or move NMH0515SC / MC7809CTG out of the `Device:` lib_id into a project symbol library.
+8. ⏸ **Title block company.** Set to "sosik" in R4-C (was "DIY") — confirm.
+9. ⏸ **Stray `rpi-preamp-psu-hat.kicad_pcb.zip`** in the project root (untracked, origin unknown) — inspect, then delete or commit.
+10. ⏸ Item 5 (LED, polyfuse) still deferred — decide whether to fold into this rev 4 or push out.

@@ -1,11 +1,8 @@
 ** Drc report for rpi-preamp-psu-hat.kicad_pcb **
-** Created on 2026-06-17T17:14:29 **
+** Created on 2026-10-30T06:42:35 **
 ** Report includes: Errors, Warnings **
 
-** Found 38 DRC violations **
-[lib_footprint_issues]: The current configuration does not include the footprint library 'stereo-preamp-psu'
-    Local override; warning
-    @(122.5550 mm, 66.6210 mm): Footprint C_NMH1
+** Found 36 DRC violations **
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
     @(144.2720 mm, 60.0170 mm): Reference field of C_IN1
@@ -38,7 +35,7 @@
     @(129.7940 mm, 70.1770 mm): Value field of C_NMH2 (100nF/50V)
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
-    @(128.4624 mm, 94.1292 mm): Reference field of OUT1
+    @(128.2000 mm, 94.1300 mm): Reference field of OUT1
 [text_height]: Text height out of range (board setup constraints silk text height min height 0.8000 mm; actual 0.6000 mm)
     Rule: board setup constraints silk text height; warning
     @(120.5992 mm, 97.1264 mm): Footprint text of OUT1 (GND)
@@ -109,10 +106,6 @@
     Rule: board setup constraints silk; warning
     @(140.7450 mm, 56.1623 mm): Segment of C_IN1 on F.Silkscreen
     @(140.9600 mm, 56.1440 mm): Segment of U1 on F.Silkscreen
-[silk_overlap]: Silkscreen clearance
-    Rule: board setup constraints silk; warning
-    @(128.4624 mm, 94.1292 mm): Reference field of OUT1
-    @(129.5120 mm, 105.8440 mm): Segment of OUT2 on F.Silkscreen
 [silk_over_copper]: Silkscreen clipped by solder mask
     Local override; warning
     @(120.0550 mm, 66.6210 mm): Circle of C_NMH1 on F.Silkscreen
